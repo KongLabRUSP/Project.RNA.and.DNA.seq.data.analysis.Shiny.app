@@ -16,4 +16,8 @@
 ## Daily Logs<a name="logs"></a>
 ### 07/21/2018
 * Repository created     
-* Template apps are uploaded     
+* Template apps are uploaded
+
+### 07/26/2018
+* modified RNA-seq pipeline uploaded     
+* shiny app are modified with dashboard template    
