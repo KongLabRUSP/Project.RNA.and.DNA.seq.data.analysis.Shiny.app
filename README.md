@@ -20,4 +20,4 @@
 
 ### 07/26/2018
 * modified RNA-seq pipeline uploaded     
-* shiny app are modified with dashboard template    
+* shiny app is modified with dashboard template    
