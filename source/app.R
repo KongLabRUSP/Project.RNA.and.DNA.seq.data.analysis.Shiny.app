@@ -3,7 +3,7 @@
 # | Script: application                                                              |
 # | Authors: Marissa (Meinizi) Zheng, Davit Sargsyan                                 |   
 # | Created: 07/22/2018                                                              |
-# | Modified:                                                                        |
+# | Modified:  7/26/2018                                                                      |
 # |----------------------------------------------------------------------------------|
 options(stringsAsFactors = FALSE)
 
@@ -13,86 +13,40 @@ require(DT)
 library(shinydashboard)
 library(shinythemes)
 
-ui <- dashboardPage(dashboardHeader(title = "Shiny ICD",
+ui <- dashboardPage(dashboardHeader(title = "Upstreaming Work",
                                     dropdownMenu(type = "notifications",
-                                                 notificationItem(text = "5 new users today",
-                                                                  icon = icon("users")),
-                                                 notificationItem(text = "12 items delivered",
-                                                                  icon = icon("truck"),
-                                                                  status = "success"),
-                                                 notificationItem(text = "Server load at 86%",
+                                                 notificationItem(text = "Task complete at 86%",      # show here the % completion of the whole task, or with a pump up window
                                                                   icon = icon("exclamation-triangle"),
                                                                   status = "warning"))),
                     dashboardSidebar(sidebarMenu(menuItem(text = "Dashboard", 
                                                           tabName = "dashboard", 
                                                           icon = icon("dashboard")),
-                                                 menuItem(text = "Mapping", 
-                                                          tabName = "mapping", 
+                                                 menuItem(text = "RNA-seq", 
+                                                          tabName = "rna", 
                                                           icon = icon("th")),
-                                                 menuItem(text = "Convert", 
-                                                          tabName = "convert", 
+                                                 menuItem(text = "DNA-seq", 
+                                                          tabName = "dna", 
                                                           icon = icon("th")))),
                     dashboardBody(tabItems(tabItem(tabName = "dashboard",
-                                                   h2("Hello1")),
-                                           tabItem(tabName = "mapping",
-                                                   sidebarPanel(radioButtons(inputId = "dataset",
-                                                                             label = "Select List",
-                                                                             choices = c("Diagnoses",
-                                                                                         "Procedures"),
-                                                                             selected = "Diagnoses"),
-                                                                selectInput(inputId = "icd9_version",
-                                                                            label = "ICD-9 Version",
-                                                                            choices = 1:10),
-                                                                uiOutput(outputId = "sub1In"),
-                                                                uiOutput(outputId = "sub2In"),
-                                                                uiOutput(outputId = "sub3In")),
-                                                   mainPanel(DT:: dataTableOutput("tbl"),
-                                                             br(),
-                                                             actionButton(inputId = "do",
-                                                                          label = "Save Selection"),
-                                                             br(),
-                                                             DT:: dataTableOutput("tbl2"),
-                                                             br(),
-                                                             downloadLink(outputId = "downloadData",
-                                                                          label = "Download Selected Rows"),
-                                                             br(),
-                                                             downloadLink(outputId = "downloadMap",
-                                                                          label = "Download Map of Selected Rows"))),
-                                           tabItem(tabName = "convert",
-                                                   sidebarPanel(fileInput(inputId = "browseMap",
-                                                                          label = "Select Mapping File",
-                                                                          multiple = FALSE),
-                                                                fileInput(inputId = "browseData",
-                                                                          label = "Select ICD Data File",
-                                                                          multiple = FALSE),
-                                                                uiOutput(outputId = "idColIn"),
-                                                                uiOutput(outputId = "icdColsIn")),
-                                                   mainPanel(DT:: dataTableOutput("tblMap"),
-                                                             br(),
-                                                             DT:: dataTableOutput("tblICD"))))))
+                                                   h2("Workflow Overview & Instructions")),
+                                           tabItem(tabName = "rna",
+                                                   sidebarPanel(textInput(inputId = "URL", label = "Enter FASTQ file directory below£º"),
+                                                                radioButtons(inputId = "isSingleEnd",
+                                                                             label = "Select Single or Pair End",
+                                                                             choices = list("Single End" = "true", "Pair End" = "false"),
+                                                                             selected = "Single End")),
+                                                   mainPanel(actionButton(inputId = "go",
+                                                                          label = "Go"))),
+                                           tabItem(tabName = "dna",
+                                                   sidebarPanel( ),
+                                                   mainPanel()))))
 
 server <- function(input, output, session) {
- output$tblMap<- DT::renderDT({
-    validate(need(input$browseMap != "", ""))
-    ne <- new.env()
-    dt3 <- fread(input$browseMap$datapath)
-    DT::datatable(head(dt3, 3),
-                  options = list(pageLength = 10),
-                  selection = list(mode = "multiple"),
-                  rownames = FALSE)
-  })
+  observeEvent(input$button, {
+               shell.exec( "C:/Users/Pro/Documents/RNAseq_Pipeline/rna-seq-genecount.nf --prams.reads input$URL  --params.SingleEnd input$isSingleEnd " )})
   
-  output$tblICD <- DT::renderDT({
-    validate(need(input$browseData != "", ""))
-    ne <- new.env()
-    fname <- load(file = input$browseData$datapath,
-                  envir = ne)
-    dt2 <- ne[[fname]]
-    DT::datatable(head(dt2, 20),
-                  options = list(pageLength = 10),
-                  selection = list(mode = "multiple"),
-                  rownames = FALSE)
-  })
+  
+
 }
 
 shinyApp(ui, server)
