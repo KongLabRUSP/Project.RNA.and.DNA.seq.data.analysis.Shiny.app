@@ -14,10 +14,13 @@
 **testApp.R**: an example  
 
 ## Daily Logs<a name="logs"></a>
-### 07/21/2018
-* Repository created     
-* Template apps are uploaded
+### 07/27/2018
+* Added folder path (using **shinyFiles** package), and ability to run batch file by clicking **Run Program** button.
 
 ### 07/26/2018
-* modified RNA-seq pipeline uploaded     
-* shiny app is modified with dashboard template    
+* modified RNA-seq pipeline uploaded        
+* shiny app is modified with dashboard template     
+
+### 07/21/2018
+* Repository created       
+* Template apps are uploaded    
