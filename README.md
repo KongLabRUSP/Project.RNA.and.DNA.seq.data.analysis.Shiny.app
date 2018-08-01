@@ -10,10 +10,20 @@
 
 ## File Legend<a name="files"></a>
 ### Scripts
-**app.R**: current (05/12/2018) version of the app           
-**testApp.R**: an example  
+**app_v2.R**: current (08/01/2018) version of the app taht can run NextFlow script on Linux.    
+**app_v1.R**: first version of the app. Can run batch files on Windows.    
+**nextflow**: NextFlow program file.    
+**pipeline.nf**: example NextFlow scriptwith passing arguments.    
+**rna-seq-genecount.nf**: Bala's current (08/01/2018)  RNA pipeline script.    
+**run.nextflow.R**: test running NextFlow script from R.     
+**run_pgm.R**: test running NextFlow script from R and shinyFiles package.    
+**test_run.bat**: test batch file to run from R.    
+**testApp.R**: an example  of a Shiny Dashboard app.  
 
 ## Daily Logs<a name="logs"></a>
+### 08/01/2018
+* **app_v2** can now run NextFlow scripts (NextFlow must be installed on a Linux machine first). A dummy 'pipeline.nf' script is created and tested for passing parameter values.
+
 ### 07/27/2018
 * Added folder path (using **shinyFiles** package), and ability to run batch file by clicking **Run Program** button.
 

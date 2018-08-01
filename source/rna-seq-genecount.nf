@@ -15,16 +15,18 @@
  #
 */
 
-/* * Define the location of fastq files */
-params.reads = "/scratch/rw409/oarc/skin/2w*_R*.fastq.gz"
+/* Default values of single/paired read and FastQ data folder location */
+params.SingleEnd = "true" 
+params.reads = "/scratch/rw409/oarc/skin/*.gz"
 
 /* Data from reference genome, Hisat index, and Bed files. */
-params.genome = "/projects/community/genomics_references/Mus_musculus/NCBI/GRCm38/Sequence/WholeGenomeFasta"
-params.gtf = "/projects/community/genomics_references/Mus_musculus/NCBI/GRCm38/Annotation/Genes/genes.gtf"
-params.hisat2_index_base="/projects/oarc/NF-Seq/Hisat2-index-NCBI/grcm38/genome"
-params.bed = "/projects/oarc/NF-Seq/Bed/Mus_musculus_NCBI_GRCm38.bed"
+params.genome = "/home/administrator/genomes/Mus_musculus/UCSC/mm10"
+params.gtf = "/home/administrator/genomes/Mus_musculus/UCSC/mm10/Annotation/Genes/genes.gtf"
+params.hisat2_index_base="/home/administrator/genomes/Mus_musculus/UCSC/mm10/Hisat2_Genome"
+params.bed = "/home/administrator/genomes/Mus_musculus/UCSC/mm10/Mus_musculus_NCBI_GRCm38.bed"
 
 /* Results are collected in this directory */
+printf "This is the working directory:\n${PWD}\n\n"
 params.outdir ="${PWD}/results"
 
 /* Locations of external programs (rest available via modules) */
@@ -38,8 +40,6 @@ params.do_trimgalore = "true"
 params.task_cpus = 1
 
 /*this is for singleEnd" */
-
-params.SingleEnd = "true" 
 Channel
     .fromFilePairs( params.reads, size: params.SingleEnd ? 1 : 2 )
     .ifEmpty { exit 1, "Cannot find any reads matching: ${params.reads}\nNB" }
