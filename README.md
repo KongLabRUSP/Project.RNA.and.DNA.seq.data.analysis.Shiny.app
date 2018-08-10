@@ -21,6 +21,9 @@
 **testApp.R**: an example  of a Shiny Dashboard app.  
 
 ## Daily Logs<a name="logs"></a>
+### 08/09/2018
+* **app_v3** added DNA program. 
+
 ### 08/01/2018
 * **app_v2** can now run NextFlow scripts (NextFlow must be installed on a Linux machine first). A dummy 'pipeline.nf' script is created and tested for passing parameter values.
 
