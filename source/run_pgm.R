@@ -12,3 +12,10 @@ library(help = "shinyFiles")
 ?shinyFilesExample
 
 shinyFilesExample()
+
+# Pacakge ICD example
+require(icd)
+library(help = 'icd')
+?icd::comorbid
+
+names_elix()
