@@ -21,8 +21,6 @@
 **testApp.R**: an example  of a Shiny Dashboard app.  
 
 ## Daily Logs<a name="logs"></a>
-### 08/09/2018
-* **app_v3** added DNA program. 
 
 ### 08/27/2018
 * **app_v4** app_v4 add VennDiagram and heatmap to DEGseq analysis, add exploratory analysis with more general experiment design.
@@ -30,7 +28,7 @@
 ### 08/20/2018
 * **app_v4** app_v4 add RNA DEGseq analysis.
 
-### 08/13/2018
+### 08/09/2018
 * **app_v3** app_v3 added DNA upstream pannel.
 
 ### 08/01/2018
