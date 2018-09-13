@@ -22,6 +22,12 @@
 
 ## Daily Logs<a name="logs"></a>
 
+### 09/10/2018
+* **app_v4** app_v4 add dispersion estimation plot and count plot in Deseq2  analysis, add multiple data normalization method in Exploratory Analysis Pannel .
+
+### 09/03/2018
+* **app_v4** app_v4 can run Deseq2 DE analysis, generate/ export result table and MA plot.
+
 ### 08/27/2018
 * **app_v4** app_v4 add VennDiagram and heatmap to DEGseq analysis, add exploratory analysis with more general experiment design.
 
