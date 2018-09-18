@@ -10,6 +10,7 @@
 
 ## File Legend<a name="files"></a>
 ### Scripts
+**app_v4.1.R**: rna-seq analysis version for statistician
 **app_v2.R**: current (08/01/2018) version of the app taht can run NextFlow script on Linux.    
 **app_v1.R**: first version of the app. Can run batch files on Windows.    
 **nextflow**: NextFlow program file.    
@@ -21,6 +22,9 @@
 **testApp.R**: an example  of a Shiny Dashboard app.  
 
 ## Daily Logs<a name="logs"></a>
+
+### 09/18/2018
+* **app_v4.1** app_v4.1 fixed plots display error and added filters and round decimal places, update FASTQ panel advanced parameter setting.
 
 ### 09/10/2018
 * **app_v4** app_v4 add dispersion estimation plot and count plot in Deseq2  analysis, add multiple data normalization method in Exploratory Analysis Pannel .
