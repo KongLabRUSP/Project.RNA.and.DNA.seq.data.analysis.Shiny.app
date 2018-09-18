@@ -10,7 +10,7 @@
 
 ## File Legend<a name="files"></a>
 ### Scripts
-**app_v4.1.R**: rna-seq analysis version for statistician.
+**app_v4.1.R**: rna-seq analysis version for statistician.     
 **app_v2.R**: current (08/01/2018) version of the app taht can run NextFlow script on Linux.    
 **app_v1.R**: first version of the app. Can run batch files on Windows.    
 **nextflow**: NextFlow program file.    
