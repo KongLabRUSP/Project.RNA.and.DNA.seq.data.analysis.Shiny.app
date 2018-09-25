@@ -23,6 +23,9 @@
 
 ## Daily Logs<a name="logs"></a>
 
+### 09/25/2018
+* **app_test1** app_test1 enabled download function, changed UI in FSTQ processing panel
+
 ### 09/18/2018
 * **app_v4.1** app_v4.1 fixed plots display error and added filters and round decimal places, update FASTQ panel advanced parameter setting.
 
