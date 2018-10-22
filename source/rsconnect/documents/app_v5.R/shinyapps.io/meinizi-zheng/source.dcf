@@ -1,0 +1,13 @@
+name: source
+title: source
+username:
+account: meinizi-zheng
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 515921
+bundleId: 1652429
+url: https://meinizi-zheng.shinyapps.io/source/
+when: 1539999755.15605
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: app_test1.R|app_v4.1.R|app_v4.R|Enter project name_degseq_ma1.tiff|Enter project name_degseq_ma2.tiff|Enter project name_expl_boxplot.tiff|Enter project name_expl_count_hist.tiff|Enter project name_expl_heatmap.tiff|Enter project name_expl_pca.tiff|Enter project namecige_heatmap.tiff|Enter project namecige_sign_gene.csv|Enter project namedegseq_trt2_trt1.csv|Enter project namedegseq_trt3_trt2.csv|Enter project namevenn1.tiff|Enter project namevenn2.tiff|nextflow|pipeline.nf|rna-seq-genecount.nf|run_nextflow.R|run_pgm.R|test_run.bat

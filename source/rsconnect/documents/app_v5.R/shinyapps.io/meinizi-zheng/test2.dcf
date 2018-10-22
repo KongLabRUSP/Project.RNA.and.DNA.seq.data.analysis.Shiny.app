@@ -1,0 +1,13 @@
+name: test2
+title: test2
+username:
+account: meinizi-zheng
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 515202
+bundleId: 1644205
+url: https://meinizi-zheng.shinyapps.io/test2/
+when: 1539626945.49242
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: app_test1.R|app_v4.1.R|app_v4.R|nextflow|pipeline.nf|rna-seq-genecount.nf|run_nextflow.R|run_pgm.R|test_run.bat
