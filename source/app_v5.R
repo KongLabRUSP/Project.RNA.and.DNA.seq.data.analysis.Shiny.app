@@ -22,9 +22,13 @@
 #   install.packages(setdiff(packages, rownames(installed.packages())))  
 # }
 # 
-# BCpackages <- c("DEGseq", 
-#                 "DESeq2",
-#                 "BiocParallel")
+# BCpackages <- c("DESeq2", 
+#                 "DEGseq",
+#                 "BiocParallel",
+#                 "ChIPseeker",
+#                 "TxDb.Mmusculus.UCSC.mm10.knownGene",
+#                  "BiocInstaller")
+#                  "DSS")
 # if (length(setdiff(BCpackages, rownames(installed.packages()))) > 0) {
 #   source("http://bioconductor.org/biocLite.R")
 #   biocLite(setdiff(BCpackages, rownames(installed.packages())))
@@ -32,26 +36,34 @@
 # 
 # sapply(c(packages, BCpackages), require, character.only=T)
 
+# update bioconductor packages 
+# source("http://bioconductor.org/biocLite.R")
+# biocLite()
+
 
 options(stringsAsFactors = FALSE)
 options(shiny.maxRequestSize=30*1024^2) 
 options(repos = BiocInstaller::biocinstallRepos())
 
 
-library(shiny)
+
 library(shinydashboard)
+library(DT)
+library(shiny)
 library(shinythemes)
 library(shinyFiles)
 library(shinyWidgets)
-library(DT)
+
 
 library(packrat)
 library(BiocInstaller)
+
+
+library(ggplot2)
 library(stringr)
 library(readxl)
 library(data.table)
 library(MASS)
-library(ggplot2)
 library(knitr)
 library(ggdendro)
 library(VennDiagram)
@@ -61,10 +73,11 @@ library(zip)
 
 
 library(DESeq2)
-library(BiocParallel)
 library(DEGseq)
+library(BiocParallel)
 library(ChIPseeker)
 library(TxDb.Mmusculus.UCSC.mm10.knownGene)
+library(DSS)
 
 
 
@@ -570,10 +583,11 @@ tabItem(tabName = "dna-seq_analysis",
                    wellPanel(tags$h3("CpG Histogram by Region"),
                              plotOutput(outputId = "cpg_hist")),
                    wellPanel(tags$h3("Methyl% by region"),
-                            plotOutput(outputId = "meth_by_region"))
-                   ),
-          tabPanel("DE Analysis: DDS",
+                            plotOutput(outputId = "meth_by_region")),
+                   # heatmap
                    wellPanel(
+                     tags$h3("Heatmap of Methyl% on Gene Level"),
+                     
                      fluidRow(
                        column(3,
                               selectInput(inputId = "dna_nc",
@@ -593,7 +607,7 @@ tabItem(tabName = "dna-seq_analysis",
                                           choices = NULL,
                                           multiple = TRUE,
                                           selected = NULL))
-                       ),
+                     ),
                      fluidRow(
                        column(3,
                               textInput(inputId = "dna_three_sample_name",
@@ -617,7 +631,86 @@ tabItem(tabName = "dna-seq_analysis",
                      ),
                      verbatimTextOutput("dna_trim_result2"),
                      verbatimTextOutput("dna_test4")
-                     ))
+                   )
+                   ),
+          tabPanel("DE Analysis: DSS",
+                   wellPanel(
+                     tags$h3("Data Preparation"),
+                     tags$h4("Instruction"),
+                     p("To make BSseq Data for pairwise comparison, select the sample columns for each comparison, following the order 
+                       (1)N: Read coverage of the position from BS-seq data; 
+                       (2)X: Number of reads showing methylation of the position.",
+                       style="padding-left: 0em"),
+                     p("For example, comparison1 (Con1_N, Con1_X, Con2_N, Con2_X), comparison2 (Exp1_N, Exp1_X, Exp2_N, Exp2_X). 
+                       Corresponding name can be (Con1, Con2) and  (Exp1, Exp2). For more information, please refer to  ",
+                       a("DSS. ", href="https://bioconductor.org/packages/release/bioc/manuals/DSS/man/DSS.pdf"),
+                       style="padding-left: 0em"),
+                     
+                    
+                     tags$h4("Construct BSseqData"),
+                     fluidRow(
+                       
+                       column(3,
+                              selectInput(inputId = "dss_comp1",
+                                          label = "Select sample columns for comparison1",
+                                          choices = NULL,
+                                          multiple = TRUE,
+                                          selected = NULL)),
+                       column(3,
+                              selectInput(inputId = "dss_comp2",
+                                          label = "Select sample columns for comparison2",
+                                          choices = NULL,
+                                          multiple = TRUE,
+                                          selected = NULL)),
+                       column(3,
+                              textInput(inputId = "dss_comp1_name",
+                                        label = "Enter sample name for comparison1 ",
+                                        value = "")),
+                       column(3,
+                              textInput(inputId = "dss_comp2_name",
+                                        label = "Enter sample name for comparison2",
+                                        value = ""))
+                     ),
+                     tags$h4("Set Parameters for DML test"),
+                     fluidRow(
+                       column(3,
+                              selectInput(inputId = "dss_wo_rep",
+                                          label = "Sample without replicates",
+                                          choices = c(TRUE,FALSE),
+                                          multiple = FALSE,
+                                          selected = TRUE)),
+                       column(3,
+                              selectInput(inputId = "dss_smoothing",
+                                          label = "Smoothing",
+                                          choices = c(TRUE,FALSE),
+                                          multiple = FALSE,
+                                          selected = TRUE)),
+                       column(3,
+                              textInput(inputId = "dss_smoothing_span",
+                                        label = "smoothing.span",
+                                        value = 500))
+                     ),
+                     tags$h4("Set threshold"),
+                     fluidRow(
+                       column(3,
+                              selectInput(inputId = "dss_pvalue",
+                                          label = "P value <",
+                                          choices = c(0.01, 0.05, 0.1, 0.25),
+                                          selected = 0.01)),
+                       column(3,
+                              selectInput(inputId = "dss_methyl_diff",
+                                          label = "Obs(diff methyl%) >=",
+                                          choices = c(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5),
+                                          selected = 0.1))
+                     )
+                   ),
+                   wellPanel(
+                     tags$h3("Result of DML test"),
+                     DT::dataTableOutput(outputId = "dss_dml_tb")
+                   )
+                   
+                   
+                   )
         )),
 
 ## --------------- dna vs rna -----------------
@@ -1541,13 +1634,13 @@ server <- function(input, output, session) {
       }
       updateSelectInput(session,
                         inputId = "comp1",
-                        label = "Select Comparison 1",
+                        label = "Select numerator level for the fold change",
                         choices = contrast,
                         selected = NULL)
       
       updateSelectInput(session,
                         inputId = "comp2",
-                        label = "Select Comparison 2",
+                        label = "Select denominator level for the fold change",
                         choices = contrast,
                         selected = NULL)
       
@@ -2174,15 +2267,18 @@ server <- function(input, output, session) {
   
   observeEvent(input$generate_methyl_DE_result, {
     # construct matrix
-    # rv$dt_dna3 <- data.frame(gene = rv$dt_dna1$SYMBOL,
-    #                          anno = rv$dt_dna1$annotation,
-    #                          geneId = rv$dt_dna1$geneId,
-    #                          chr = rv$dt_dna1$geneChr,
-    #                          pos = rv$dt_dna1$start,
-    #                          reg = NA,
-    #                          CpG = rv$dt_dna1$CpG,
-    #                          rv$dt_dna1[, c(input$dna_nc, input$dna_pc, input$dna_trt)],
-    #                          geneName = rv$dt_dna1$GENENAME)
+    rv$dt_dna3 <- data.frame(gene = rv$dt_dna1$SYMBOL,
+                             anno = rv$dt_dna1$annotation,
+                             geneId = rv$dt_dna1$geneId,
+                             chr = rv$dt_dna1$geneChr,
+                             pos = rv$dt_dna1$start,
+                             reg = NA,
+                             CpG = rv$dt_dna1$CpG,
+                             rv$dt_dna1[, c(input$dna_nc, input$dna_pc, input$dna_trt)],
+                             geneName = rv$dt_dna1$GENENAME)
+    output$dna_test4 <- renderPrint(head(rv$dt_dna3))
+    
+    
     # 
     # 
     # rv$dt_dna3 <- try(droplevels(rv$dt_dna3[rowSums(rv$dt_dna3[, c(input$dna_nc, input$dna_pc, input$dna_trt)],
@@ -2239,7 +2335,7 @@ server <- function(input, output, session) {
     # pct$gene <- rv$dt_rna3$gene
     # 
     # rv$dt_dna4 <- merge.data.frame(rv$dt_dna3, pct, by="gene")
-    # output$dna_test4 <- renderPrint(head(rv$dt_dna4))
+    
     
     # heatmap
     
