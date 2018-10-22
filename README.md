@@ -10,8 +10,9 @@
 
 ## File Legend<a name="files"></a>
 ### Scripts
+**app_v5.R**: latest rna and dna pipeline
 **app_v4.1.R**: rna-seq analysis version for statistician.     
-**app_v2.R**: current (08/01/2018) version of the app taht can run NextFlow script on Linux.    
+**app_v2.R**: current (08/01/2018) version of the app that can run NextFlow script on Linux.    
 **app_v1.R**: first version of the app. Can run batch files on Windows.    
 **nextflow**: NextFlow program file.    
 **pipeline.nf**: example NextFlow scriptwith passing arguments.    
@@ -22,6 +23,16 @@
 **testApp.R**: an example  of a Shiny Dashboard app.  
 
 ## Daily Logs<a name="logs"></a>
+
+
+### 10/22/2018
+* **app_v5** app_v5 added DSS package UI part for DNA pipeline
+
+### 10/15/2018
+* **app_v5** app_v5 added heatmap of methyl% on gene level
+
+### 10/08/2018
+* **app_v5** app_v5 can run DNA pannels including annotation and exploratory analysis
 
 ### 09/25/2018
 * **app_test1** app_test1 enabled download function, changed UI in FSTQ processing panel
