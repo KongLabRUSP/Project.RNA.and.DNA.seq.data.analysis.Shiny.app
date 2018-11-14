@@ -10,6 +10,7 @@
 
 ## File Legend<a name="files"></a>
 ### Scripts
+**app_v6.R**: outsourcing functions and switch some plots to plotly 
 **app_v5.R**: latest rna and dna pipeline
 **app_v4.1.R**: rna-seq analysis version for statistician.     
 **app_v2.R**: current (08/01/2018) version of the app that can run NextFlow script on Linux.    
@@ -24,6 +25,9 @@
 
 ## Daily Logs<a name="logs"></a>
 
+
+### 11/14/2018
+* **app_v6** app_6 outsource functions from plot.R and data-prep.R and switch some plots to plotly 
 
 ### 10/22/2018
 * **app_v5** app_v5 added DSS package UI part for DNA pipeline

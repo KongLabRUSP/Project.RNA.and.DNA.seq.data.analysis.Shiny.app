@@ -2327,7 +2327,7 @@ server <- function(input, output, session) {
                      measure.vars = unlist(strsplit(input$dna_heat_sample_name, ",")))
     
     rv$dna_heat1 <- ggplot(data = pos_long) +
-      geom_tile(aes(x =  variable,
+      geom_tile(aes(x = variable,
                     y = gene,
                     fill = value),
                 color = "black") +
